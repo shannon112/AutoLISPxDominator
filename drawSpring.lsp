@@ -1,3 +1,4 @@
+;小心autolisp 不會自動刷新沒再用到的參數，錯誤的參數會一直記著，重開才能解決
 (defun c:s1(/ ip pe r nc len p th th1 th2 p1 p2 p3)
 	(graphscr)
   	(if (and ;if  ; and can return true false
@@ -14,11 +15,11 @@
 			p (/ len nc)
 			p1 (polar ip th2 r) p2 (polar ip th1 r)
   			)
-  
+
   		  (command "pline" p2 p1)
   		  (setq p2 (polar p2 th (/ p 2.0))
 			p3 (polar p1 th p)
-  		  )	
+  		  )
   		  (repeat nc
 	 		(command p2 p3)
    	 		(setq p2 (polar p2 th p)
