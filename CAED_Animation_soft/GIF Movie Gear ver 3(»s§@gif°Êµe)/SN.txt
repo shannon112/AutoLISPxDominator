@@ -1,0 +1,8 @@
+序號:
+name:sndb
+serial:mg37s3034066
+
+安裝之後執行程式-->Start from scratch --> <Help><Register><key in the name and sn><OK>
+
+
+ttc, 2009/05/17
