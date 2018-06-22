@@ -1,5 +1,5 @@
 ;==========================================================
-;   BOLT3D.LSP --- Bolt, Solid Model
+;    BOLT3D.LSP --- Bolt, Solid Model
 ;
 ;   Programmer : Tien-Tung Chung, NTUME, Feb. 8, 2003
 ;   needs UTIL.LSP : tan(), rpoint3d(), ...
