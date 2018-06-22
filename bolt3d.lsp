@@ -14,7 +14,7 @@
 ;      Command: BOLTEX1   -> Example1
 ;
 ;==========================================================
- (if (null tan)(load "util.lsp"))
+(if (null tan)(load "util.lsp"))
  (command "facetres" 5)(command "dispsilh" 1)
 ;==========================================================
 (defun c:bb (/) (c:ihbex1))
@@ -188,7 +188,7 @@
                      p0 p1 p2 p3 p4 )
   (setq a30 (dtr 30) a60 (dtr 60) pi/2 (/ pi 2.0)
         H (nth 1 dlist)  B (nth 2 dlist)
-        r2 (/ B 2.0) 
+        r2 (/ B 2.0)
         d3 (nth 3 dlist)   r3 (/ d3 2.0)
         r4 (/ r2 (cos a30))
         p1 (polar ip 0.0 r4)    p2 (polar ip a60 r4)

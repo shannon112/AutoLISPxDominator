@@ -54,8 +54,6 @@
 ;    (c:ic) : interactive command for inters-c() functions
 ;    (changecolor en cno) : change color
 ;    (c:cc) : interactively change color
-;--- 2016/01/15
-;    (box_bc ip L W H) ; box with buttom center point ip
 ;
 ;==========================================================
 (setq pi/2 (/ pi 2.0) pi/3 (/ pi 3.0) pi/4 (/ pi 4.0) pi/6 (/ pi 6.0))
@@ -84,6 +82,7 @@
 (defun dtr( d / ) (* pi (/ d 180.0)) )
 (defun d2r (d / )  (* pi (/ d 180.)) )
 (defun r2d (r / )  (* 180. (/ r pi)) )
+
 ;================================================
 (defun c:cc (/ e1 cno )
   (graphscr)
@@ -684,11 +683,6 @@
   (command)
 )
 ;==========================================================
-(defun pcontinue ( / )
-  (princ "\nPress any key to continue !")(grread)
-  ;(command)
-)
-;==========================================================
 ;    c:ls() ;--- layer set by select an entity or keyin
 (defun c:ls ( / ln)
   (setq ln (getln))  (if (and ln (/= ln ""))(layer_s ln))  (princ)
@@ -977,7 +971,6 @@
 (command "style" "complex" "complex" "" "" "" "" "" "")
 (command "viewres" "" 1000)
 (command "facetres" 10)
-(command "dim" "sty" "complex" "dimexo" 1.5)(command)
 (princ)  ;null return value
 ;================================================
 ; turn on object snap
@@ -1052,7 +1045,7 @@
 (defun c:aL ( / str fn)
   (setq str "\nLoad ARX file name <")
   (if arxfn
-      (setq str (strcat str arxfn ">: "))
+      (setq str (strcat str arxfn ".ARX>: "))
       (setq str (strcat str "exit>: "))
   );end-if
   (if (/= "" (setq fn (getstring str)))
@@ -1062,23 +1055,18 @@
       (progn
         (setq fn (strcat arxfn ".ARX"))
         (arxload fn)
-	(princ (strcat "\*** Load " arxfn " ! ***"))
       )
   );end-if
   (princ)
 );end_c:aL()
 ;==========================================================
-; arx unload
 ; Global varibal : arxfn - ARX File Name
 (defun c:aU (/ str fn)
   (if arxfn
       (progn
         (setq fn (strcat arxfn ".ARX"))
-        ;(command "ARX" "U" arxfn)
-	(arxunload arxfn)
-	(princ (strcat "\*** Unload " arxfn " ! ***"))
+        (command "ARX" "U" arxfn)
       )
-      (princ "\n*** Error, arxfn not given ! ***")
   );end-if
   (princ)
 )
@@ -1091,22 +1079,30 @@
   (command "fillet" p1 p2)
   (princ)
 )
-(defun pause (msg / )
-  (princ msg)(princ "\n*** press return to continus !")
-  (getstring)
-  (princ)
-)
 ;==========================================================
 (defun princ2 (a b ) (princ a)(princ b))
 (defun princ3 (a b c ) (princ a)(princ b)(princ c))
 (defun princ4 (a b c d) (princ a)(princ b)(princ c)(princ d))
 ;==========================================================
-;======================================
-; box with buttom center point ip
-(defun box_bc (ip L W H /   )
-  ;(command "ucs" "O" ip)
-  (command "ucs" "O" (rpoint3d ip 0 0 (/ H 2.0)))
-  (command "box" "CE" "0,0,0" "L" L W H)
-  (command "ucs" "P")(princ)
+
+
+(defun rand (/ modulus multiplier increment random)
+  (if (not daed_seed)
+    (setq daed_seed (getvar "DATE"))
+  )
+  (setq modulus    65536
+        multiplier 25173
+        increment  13849
+        daed_seed  (rem (+ (* multiplier daed_seed) increment) modulus)
+        random     (/ daed_seed modulus)
+  )
 )
-;======================================
+
+(defun RBTN (in out / num)
+  (while (not (and (setq num (fix (* 100 (rand))))
+              (>= num in)
+              (<= num out)
+         ))
+  )
+  num
+)
