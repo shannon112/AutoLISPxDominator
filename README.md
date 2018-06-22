@@ -1,5 +1,8 @@
 # AutoLISP excercise code & Psycho-pass Dominator
 ### Psycho-pass Dominator  
+  
+using util.lsp & dominator.lsp  
+  
 1.Normal  
 $ GIVEMEDOMINATOR  
 $ (any number)  
